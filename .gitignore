@@ -1,0 +1,60 @@
+# Terraform state files — contain sensitive data, never commit
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Terraform working directory
+.terraform/
+.terraform.lock.hcl
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Terraform variable files — may contain secrets
+*.tfvars
+*.tfvars.json
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plan output — can contain sensitive values
+*.tfplan
+*.plan
+
+# CLI config
+.terraformrc
+terraform.rc
+
+#---claude
+# Claude configuration and credentials
+.claude/
+claude.json
+.env
+.env.local
+.env.*.local
+
+# Claude API keys and secrets
+CLAUDE_API_KEY
+claude_api_key.txt
+
+# Claude Code/workspace files (if using Claude Code)
+.claude-code/
+claude-workspace.json
+
+# MCP server configs (if using Model Context Protocol)
+mcp-config.json
+mcp-server/logs/
+
+# Temporary Claude artifacts
+claude-artifacts/
+claude-tmp/
+
+# IDE/editor files that might contain secrets
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
