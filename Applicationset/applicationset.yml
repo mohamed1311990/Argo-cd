@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dotnet-app
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+
+  generators:
+    - list:
+        elements:
+          - env: dev
+            project: dev
+            namespace: dev
+            valuesFile: values-dev.yaml
+            imageTag: dev
+            revision: dev
+          - env: test
+            project: test
+            namespace: test
+            valuesFile: values-test.yaml
+            imageTag: test
+            revision: test
+          - env: prod
+            project: prod
+            namespace: prod
+            valuesFile: values-prod.yaml
+            imageTag: prod
+            revision: main
+
+  template:
+    metadata:
+      name: 'dotnet-app-{{.env}}'
+    spec:
+      project: '{{.project}}'
+      source:
+        repoURL: 'https://github.com/mohamed1311990/dotnet-app.git'
+        targetRevision: '{{.revision}}'
+        path: helm/chart
+        helm:
+          valueFiles:
+            - '{{.valuesFile}}'
+          parameters:
+            - name: image.tag
+              value: '{{.imageTag}}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
