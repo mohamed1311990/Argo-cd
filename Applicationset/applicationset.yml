@@ -41,9 +41,6 @@ spec:
         helm:
           valueFiles:
             - '{{.valuesFile}}'
-          parameters:
-            - name: image.tag
-              value: '{{.imageTag}}'
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: '{{.namespace}}'
