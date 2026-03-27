@@ -7,7 +7,7 @@ variable "namespace" {
 variable "source_repos" {
   description = "Allowed git repos"
   type        = list(string)
-  default     = ["https://github.com/yourorg/app"]
+  default     = ["https://github.com/mohamed1311990/dotnet-app.git"]
 }
 
 variable "auto_sync" {
